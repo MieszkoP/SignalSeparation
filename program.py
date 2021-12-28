@@ -51,7 +51,7 @@ def Standardize(Y, x1_min, x1_max, x2_min, x2_max, y_min, y_max):
   return Y_new
 
 def DeStandarize(Y, x1_min, x1_max, x2_min, x2_max, y_min, y_max):
-'''Destandarize the dependent variables from 0.1 - 0.9 to correct'''
+  '''Destandarize the dependent variables from 0.1 - 0.9 to correct'''
   delta_x1 = x1_max - x1_min
   delta_x2 = x2_max - x2_min
 
