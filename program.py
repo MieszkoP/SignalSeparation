@@ -223,7 +223,6 @@ def MultiplyCNN(n,karnel_size,added_filters, filter_beg,dense1,dense2,x, BatchN)
   return out
 
 
-
 def MultiplyCNNDenseless(n,karnel_size,added_filters,filter_beg,x,BatchN):
   for i in np.arange(n):
     x = layers.Conv1D(i*added_filters+filter_beg,karnel_size, 1) (x)
@@ -237,48 +236,6 @@ def MultiplyCNNDenseless(n,karnel_size,added_filters,filter_beg,x,BatchN):
 
     x = layers.MaxPooling1D(2)(x)
   return x, (n-1)*added_filters+filter_beg
-
-from keras import backend
-
-def mean_squared_error_new_height(y_true, y_pred, y_true1, y_true2, weightfunction):
-  y_pred = tf.convert_to_tensor(y_pred)
-  y_true = tf.cast(y_true, y_pred.dtype)
-
-  y_true1 = DeStandarizeHeight(y_true1, 0.8, 15)
-  y_true2 = DeStandarizeHeight(y_true2, 0.8, 15)
-  
-  return backend.mean(tf.math.squared_difference(y_pred, y_true)*weightfunction(HeightProportionTensorflow(y_true1, y_true2)), axis=-1)
-
-def mean_squared_error_new_position2(y_true, y_pred, weightfunction):
-  y_pred = tf.convert_to_tensor(y_pred)
-  y_true = tf.cast(y_true, y_pred.dtype)
-  
-  return backend.mean(tf.math.squared_difference(y_pred, y_true)*weightfunction(y_true), axis=-1)
-
-def height_dif(y_true, y_pred):
-  return mean_squared_error_new_height(HeightProportionTensorflow(y_true[:,1], y_true[:,0]),HeightProportionTensorflow(y_pred[:,1],y_pred[:,0]), y_true[:,0], y_true[:,1])*0.00255
-
-def freq_dif(y_true, y_pred):
-
-  true = PlacesChange(y_true[:,3], 0.1, 1.7)-y_true[:,2]
-  pred = PlacesChange(y_pred[:,3], 0.1, 1.7)-y_pred[:,2]
-  return tf.keras.losses.mean_squared_error(true,pred)*0.224
-
-def h1loss(y_true, y_pred):
-  return tf.keras.losses.mean_squared_error(y_true[:,0],y_pred[:,0])
-
-def h2loss(y_true, y_pred):
-  return tf.keras.losses.mean_squared_error(y_true[:,1],y_pred[:,1])
-
-def p1loss(y_true, y_pred):
-  return tf.keras.losses.mean_squared_error(y_true[:,2],y_pred[:,2])
-
-def p2loss(y_true, y_pred):
-  return mean_squared_error_new_position2(y_true[:,3],y_pred[:,3])
-
-def custom_loss_function(y_true, y_pred):
-  loss = height_dif(y_true, y_pred)+h1loss(y_true, y_pred)+h2loss(y_true, y_pred)+p1loss(y_true, y_pred)+p2loss(y_true, y_pred)+freq_dif(y_true, y_pred)
-  return loss
 
 def NoBatch():
   return [False, False, False]
@@ -297,31 +254,3 @@ def AfterInputAndAfterAct():
 
 def AfterInputAndBeforeAct():
   return [True, True, False]
-
-def TrainNetwork(seed, fork_point, optim, basic_lr, BatchNormalization):
-  tf.random.set_seed(seed)
-  
-  model = CreateNetwork(BatchNormalization, fork_point) #Ustal czy w architekturze sieci będzie normalizacja Batch na początku czy nie
-
-  opt = optim(learning_rate=basic_lr)
-  model.compile(loss=custom_loss_function,
-                optimizer=opt,
-                metrics = [h1loss, h2loss, p1loss, p2loss, height_dif, freq_dif, r_square],
-                run_eagerly=False)
-
-  earlyStopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=5, verbose=1, mode='min')
-  reduce_lr_loss = tf.keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.1, patience=4, verbose=1, min_lr=0.00001, min_delta=1e-4, mode='min')
-
-  mymodel=model.fit(
-      X,
-      Y_new,
-      batch_size=100,
-      epochs=50,
-      verbose=1,
-      callbacks=[reduce_lr_loss, earlyStopping],
-      validation_data = (X_t, Y_new_test)
-  )
-
-  print('Koniec uczenia')
-  return mymodel
-
