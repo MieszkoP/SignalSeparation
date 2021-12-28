@@ -1,7 +1,8 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import scipy.stats
-import tensorflow
+def ImportLibraries():
+  import numpy as np
+  import matplotlib.pyplot as plt
+  import scipy.stats
+  import tensorflow
 
 def GenerateSignal(df, bottom_border, top_border): #Wygeneruj sygnał o ustalonej odległości df. Rozmiar pików losowy (ale w taki spoób aby stosunek wysokości sie zgadzał), miejsce tez losowe (od 400 do 500)
   height1 = np.random.uniform(bottom_border,top_border)
