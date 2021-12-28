@@ -1,6 +1,5 @@
 def GenerateSignal(df, bottom_border, top_border): 
   '''Generate a signal with a fixed distance df. Uniform random peak size (from bottom_border to top_border), also uniform random location (from 400 to 500)'''
-  
   height1 = np.random.uniform(bottom_border,top_border)
   height2 = np.random.uniform(bottom_border,top_border)
   x = np.arange(0,1000,1)
@@ -15,7 +14,6 @@ def GenerateSignal(df, bottom_border, top_border):
   return y, height1, height2, place1, place2
 
 def RatioOfUniforms(a,b,x,p=1.0):
-
   out = 1./((b-a)**2)*((b*b)/(x*x)-a*a)
   out = tf.where(tf.less(x, 1.0), 0., out)
   out = tf.where(tf.greater(x, b/a), 0., out)
