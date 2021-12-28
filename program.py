@@ -1,10 +1,6 @@
-def ImportLibraries():
-  import numpy as np
-  import matplotlib.pyplot as plt
-  import scipy.stats
-  import tensorflow
-
-def GenerateSignal(df, bottom_border, top_border): #Wygeneruj sygnał o ustalonej odległości df. Rozmiar pików losowy (ale w taki spoób aby stosunek wysokości sie zgadzał), miejsce tez losowe (od 400 do 500)
+def GenerateSignal(df, bottom_border, top_border): 
+  '''Generate a signal with a fixed distance df. Uniform random peak size (from bottom_border to top_border), also uniform random location (from 400 to 500)'''
+  
   height1 = np.random.uniform(bottom_border,top_border)
   height2 = np.random.uniform(bottom_border,top_border)
   x = np.arange(0,1000,1)
@@ -17,3 +13,13 @@ def GenerateSignal(df, bottom_border, top_border): #Wygeneruj sygnał o ustalone
   y = y1+y2
   y = np.random.normal(loc=0, scale=0.005, size=1000)+y
   return y, height1, height2, place1, place2
+
+def RatioOfUniforms(a,b,x,p=1.0):
+
+  out = 1./((b-a)**2)*((b*b)/(x*x)-a*a)
+  out = tf.where(tf.less(x, 1.0), 0., out)
+  out = tf.where(tf.greater(x, b/a), 0., out)
+  p = tf.cast(p, tf.float32)
+  out = tf.cast(out, tf.float32)
+  return out/p
+
