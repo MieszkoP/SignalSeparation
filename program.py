@@ -120,9 +120,6 @@ def Uniform(a,b,x):
 
   return out
 
-CostHeightProp = CostFunction(RatioOfUniforms, 0.8, 15, 1, HeightProportionTensorflow(DeStandarizeHeight(Y_new[:,0], 0.8, 15),DeStandarizeHeight(Y_new[:,1], 0.8, 15)))
-CostPlace2 = CostFunction(SumOfUniforms, 0.1, 0.9, 1, Y_new[:,3])
-
 class Populaton:
   
   def __init__(self, number, n_hip):
@@ -243,20 +240,20 @@ def MultiplyCNNDenseless(n,karnel_size,added_filters,filter_beg,x,BatchN):
 
 from keras import backend
 
-def mean_squared_error_new_height(y_true, y_pred, y_true1, y_true2):
+def mean_squared_error_new_height(y_true, y_pred, y_true1, y_true2, weightfunction):
   y_pred = tf.convert_to_tensor(y_pred)
   y_true = tf.cast(y_true, y_pred.dtype)
 
   y_true1 = DeStandarizeHeight(y_true1, 0.8, 15)
   y_true2 = DeStandarizeHeight(y_true2, 0.8, 15)
   
-  return backend.mean(tf.math.squared_difference(y_pred, y_true)*CostHeightProp(HeightProportionTensorflow(y_true1, y_true2)), axis=-1)
+  return backend.mean(tf.math.squared_difference(y_pred, y_true)*weightfunction(HeightProportionTensorflow(y_true1, y_true2)), axis=-1)
 
-def mean_squared_error_new_position2(y_true, y_pred):
+def mean_squared_error_new_position2(y_true, y_pred, weightfunction):
   y_pred = tf.convert_to_tensor(y_pred)
   y_true = tf.cast(y_true, y_pred.dtype)
   
-  return backend.mean(tf.math.squared_difference(y_pred, y_true)*CostPlace2(y_true), axis=-1)
+  return backend.mean(tf.math.squared_difference(y_pred, y_true)*weightfunction(y_true), axis=-1)
 
 def height_dif(y_true, y_pred):
   return mean_squared_error_new_height(HeightProportionTensorflow(y_true[:,1], y_true[:,0]),HeightProportionTensorflow(y_pred[:,1],y_pred[:,0]), y_true[:,0], y_true[:,1])*0.00255
