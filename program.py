@@ -237,6 +237,21 @@ def MultiplyCNNDenseless(n,karnel_size,added_filters,filter_beg,x,BatchN):
     x = layers.MaxPooling1D(2)(x)
   return x, (n-1)*added_filters+filter_beg
 
+def CreateNetwork(BatchN, f_p):
+  inp = layers.Input(shape=(1000,1))
+  if BatchN()[0]==True:
+    inp = layers.BatchNormalization()(inp)
+  out, out_filters = MultiplyCNNDenseless(f_p,3,2,2,inp,BatchN)
+  out2 = MultiplyCNN(7-f_p,3,2,out_filters+2,20,2,out,BatchN)
+  out4 = MultiplyCNN(7-f_p,3,2,out_filters+2,20,2,out,BatchN)
+
+
+  out = layers.Concatenate()([out2, out4])
+
+
+  model = Model(inp, out, name="Network")
+  return model
+
 def NoBatch():
   return [False, False, False]
 
