@@ -289,7 +289,7 @@ def ExcludeByDistance(l_top, l_bottom, Y_destand, Y_test_destand, Y_pred_test_de
     Y_pred_destand_l = Y_pred_destand_l[:k,:]
 
     k=0
-    for j in range(Y_new_test.shape[0]):
+    for j in range(Y_test_destand.shape[0]):
       if l_top>(Y_test_destand[j,3]-Y_test_destand[j,2])>l_bottom:
         Y_test_destand_l[k,i] = Y_test_destand[j,i]
         Y_pred_test_destand_l[k,i] = Y_pred_test_destand[j,i]
