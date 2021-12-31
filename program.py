@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats
 import tensorflow as tf
+from scipy.stats import pearsonr
 
 def GenerateSignal(df, bottom_border, top_border): 
   '''Generate a signal with a fixed distance df. Uniform random peak size (from bottom_border to top_border), also uniform random location (from 400 to 500)'''
@@ -269,3 +270,48 @@ def AfterInputAndAfterAct():
 
 def AfterInputAndBeforeAct():
   return [True, True, False]
+
+def ExcludeByDistance(l_top, l_bottom, Y_destand, Y_test_destand, Y_pred_test_destand, Y_pred_destand):
+  Y_destand_l = np.zeros((Y_destand.shape[0],4))
+  Y_test_destand_l = np.zeros((Y_test_destand.shape[0],4))
+  Y_pred_test_destand_l = np.zeros((Y_pred_test_destand.shape[0],4))
+  Y_pred_destand_l = np.zeros((Y_pred_destand.shape[0],4))
+
+  for i in range(4):
+    k=0
+    for j in range(Y_destand.shape[0]):
+      #print(Y_destand[j,3]-Y_destand[j,2])
+      if l_top>(Y_destand[j,3]-Y_destand[j,2])>l_bottom:
+        Y_destand_l[k,i] = Y_destand[j,i]
+        Y_pred_destand_l[k,i] = Y_pred_destand[j,i]
+        k+=1
+    Y_destand_l = Y_destand_l[:k,:]
+    Y_pred_destand_l = Y_pred_destand_l[:k,:]
+
+    k=0
+    for j in range(Y_new_test.shape[0]):
+      if l_top>(Y_test_destand[j,3]-Y_test_destand[j,2])>l_bottom:
+        Y_test_destand_l[k,i] = Y_test_destand[j,i]
+        Y_pred_test_destand_l[k,i] = Y_pred_test_destand[j,i]
+        k+=1
+    Y_test_destand_l = Y_test_destand_l[:k,:]
+    Y_pred_test_destand_l = Y_pred_test_destand_l[:k,:]
+  return Y_destand_l, Y_test_destand_l, Y_pred_test_destand_l, Y_pred_destand_l
+
+def PredRealChart(name, pred, true):
+  fig, ax = plt.subplots()
+  ax.scatter(true, pred, s=0.2)
+  ax.plot([true.min(), true.max()], [true.min(), true.max()], 'k--', lw=2)
+  ax.set_xlabel('Prawdziwy/a '+name)
+  ax.set_ylabel('Przewidywany/a '+name)
+  plt.show()
+
+def R2(pred, true):
+  corr,_ = pearsonr(true,pred)
+  return corr**2
+
+def NMSE(pred, true):
+  return np.mean((true-pred)**2)/np.var(true)
+
+def ZYSK(NMSE0, NMSE1):
+  return 100*(NMSE0-NMSE1)/NMSE0
