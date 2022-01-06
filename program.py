@@ -19,6 +19,17 @@ def GenerateSignal(df, bottom_border, top_border):
   y = np.random.normal(loc=0, scale=0.005, size=1000)+y
   return y, height1, height2, place1, place2
 
+def generate_definite_signal(h1,h2,t1,t2, noise=0.005):
+  x = np.arange(0,1000,1)
+  place1 = t1
+  place2 = t2
+  y_f1 = scipy.stats.norm(place1, 100/2.355)
+  y1 = y_f1.pdf(x)*100/2.355*(2*3.14)**(1/2)*h1
+  y_f2 = scipy.stats.norm(place2, 100/2.355)
+  y2 = y_f2.pdf(x)*100/2.355*(2*3.14)**(1/2)*h2
+  y = np.random.normal(loc=0, scale=noise, size=1000)+y
+  return y
+
 def RatioOfUniforms(a,b,x,p=1.0):
   '''Generate a function describing the probability density of the ratio of the variables generated in a normal distribution (normal distribution range from a to b).'''
   out = 1./((b-a)**2)*((b*b)/(x*x)-a*a)
@@ -253,23 +264,17 @@ def CreateNetwork(BatchN, f_p):
   model = Model(inp, out, name="Network")
   return model
 
-def NoBatch():
-  return [False, False, False]
+NoBatch = lambda : [False, False, False]
 
-def OnlyBeforeAct():
-  return [False, True, False]
+OnlyBeforeAct = lambda : [False, True, False]
 
-def OnlyAfterAct():
-  return [False, False, True]
+OnlyAfterAct = lambda : [False, False, True]
 
-def AfterInput():
-  return [True, False, False]
+AfterInput = lambda : [True, False, False]
 
-def AfterInputAndAfterAct():
-  return [True, False, True]
+AfterInputAndAfterAct = lambda : [True, False, True]
 
-def AfterInputAndBeforeAct():
-  return [True, True, False]
+AfterInputAndBeforeAct = lambda : [True, True, False]
 
 def ExcludeByDistance(l_top, l_bottom, Y_destand, Y_test_destand, Y_pred_test_destand, Y_pred_destand):
   Y_destand_l = np.zeros((Y_destand.shape[0],4))
@@ -310,8 +315,6 @@ def R2(pred, true):
   corr,_ = pearsonr(true,pred)
   return corr**2
 
-def NMSE(pred, true):
-  return np.mean((true-pred)**2)/np.var(true)
+NMSE = lambda pred, true : np.mean((true-pred)**2)/np.var(true)
 
-def ZYSK(NMSE0, NMSE1):
-  return 100*(NMSE0-NMSE1)/NMSE0
+ZYSK = lambda NMSE0, NMSE1 : 100*(NMSE0-NMSE1)/NMSE0
