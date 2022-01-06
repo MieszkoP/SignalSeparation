@@ -27,6 +27,7 @@ def generate_definite_signal(h1,h2,t1,t2, noise=0.005):
   y1 = y_f1.pdf(x)*100/2.355*(2*3.14)**(1/2)*h1
   y_f2 = scipy.stats.norm(place2, 100/2.355)
   y2 = y_f2.pdf(x)*100/2.355*(2*3.14)**(1/2)*h2
+  y = y1+y2
   y = np.random.normal(loc=0, scale=noise, size=1000)+y
   return y
 
