@@ -1,7 +1,7 @@
 # Signal Separation
-## 0.0.3 version
+## 0.0.5 version
 
-Version 0.0.3 enables the simplest generation and separation of analytical chemistry signals consisting of two Gaussian peaks 100 wide, 0.8 to 15 high, difference from 0 to 100. The signal length is 1000 points.
+Version 0.0.5 enables the simplest generation and separation of analytical chemistry signals consisting of two Gaussian peaks 100 wide, 0.8 to 15 high, difference from 0 to 100. The signal length is 1000 points.
 
 The algorithm is based on theoretical considerations about the signal function contained in the paper (see reference 1).
 
@@ -17,7 +17,7 @@ The algorithm is based on theoretical considerations about the signal function c
 
 
 ```sh
-pip install signal_separation
+pip install signal-separation
 ```
 
 ## About ProjektInzynierski.ipynb and program.py
