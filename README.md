@@ -16,7 +16,7 @@ The algorithm is based on theoretical considerations about the signal function c
 ## Installation
 
 
-```sh
+```python
 pip install signal-separation
 ```
 
