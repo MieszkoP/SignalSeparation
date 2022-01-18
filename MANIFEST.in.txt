@@ -1,3 +1,0 @@
-include signal_separation/*.h5
-include signal_separation/SVRp
-include signal_separation/SVRh
