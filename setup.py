@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='signal_separation',
     packages=['signal_separation'],
-    version='0.0.4',
+    version='0.0.6',
     license='MIT',
     description='Algorithm for generating and separating analytical chemistry signal.',
     author='Mieszko Pasierbek',
