@@ -9,7 +9,7 @@ The algorithm is based on theoretical considerations about the signal function c
 - Genetic algorithm (see reference 2)
 - Quick script for generating 1d-convolutional neural network architecture and training it (the possibility of setting the optimizer, grain, etc. in one line)
 - Generation of a simple signal of two overlapping peaks with Gaussian distribution
-- Modification of the cost function to compensate for the scarcity of the data (see: reference 3)
+- Modification of the cost function to compensate for the rarity of the data (see: reference 3)
 - **A script that estimates the positions and heights of peaks based on the generated signal (Uses CNN + SVR + Cost Modifications).**
 
 
