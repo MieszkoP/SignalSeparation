@@ -1,5 +1,5 @@
 # Signal Separation
-## 0.0.2 version
+## 0.0.3 version
 
 Version 0.0.3 enables the simplest generation and separation of analytical chemistry signals consisting of two Gaussian peaks 100 wide, 0.8 to 15 high, difference from 0 to 100. The signal length is 1000 points.
 
