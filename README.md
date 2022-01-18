@@ -32,5 +32,7 @@ made by Mieszko Pasierbek*
 ## References
 
 [1] - J. Dubrovkin, „Mathematical methods for separation of overlapping asymmetrical peaks in spectroscopy and chromatography. Case study: one-dimensional signals”, International Journal of Emerging Technologies in Computational and Applied Sciences 11.1 (2015), 1–8.
+
 [2] - T. Nagaoka, „Hyperparameter Optimization for Deep Learning-based Automatic Melanoma Diagnosis System”, Advanced Biomedical Engineering 9 (2020), 225
+
 [3] - M. Steininger, K. Kobs, P. Davidson, A. Krause i A Hotho, „Density-based weighting for imbalanced regression”, Machine Learning 110 (2021), 2187–2211.
