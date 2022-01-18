@@ -17,7 +17,7 @@ The algorithm is based on theoretical considerations about the signal function c
 
 
 ```sh
-pip install signal-separation
+pip install signal_separation
 ```
 
 ## About ProjektInzynierski.ipynb and program.py
