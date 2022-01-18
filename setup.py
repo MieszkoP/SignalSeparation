@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='signal-separation',
     packages=['signal-separation'],
-    version='0.0.1',
+    version='0.0.2',
     license='MIT',
     description='Algorithm for generating and separating analytical chemistry signal.',
     author='Mieszko Pasierbek',
@@ -13,8 +13,6 @@ setup(
     keywords=['CNN', 'Deep Learning', 'signal', 'SVR', 'chemometrics', 'chemistry'],
     install_requires=[
         'numpy',
-        'matplotlib.pyplot',
-        'scipy.stats',
         'tensorflow'
     ],
     classifiers=[
