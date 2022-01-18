@@ -9,7 +9,7 @@ setup(
     author='Mieszko Pasierbek',
     author_email='mieszko.pasierbek@gmail.com',
     url='https://github.com/MieszkoP',
-    download_url='https://github.com/MieszkoP/signal_separation/archive/refs/tags/0.0.3.tar.gz',
+    download_url='https://github.com/MieszkoP/signal_separation/archive/refs/tags/0.0.5.tar.gz',
     keywords=['CNN', 'Deep Learning', 'signal', 'SVR', 'chemometrics', 'chemistry'],
     install_requires=[
         'numpy',
