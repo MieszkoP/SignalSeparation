@@ -1,7 +1,7 @@
 from tensorflow.keras import layers, Model, backend
 import numpy as np
 import tensorflow as tf
-from _signal_creator import destandardize_height, height_ratio, places_change, de_standardize
+from signal_separation._signal_creator import destandardize_height, height_ratio, places_change, de_standardize
 
 
 def multiply_cnn(n, kernel_size, added_filters, filter_beg, dense1, dense2, x, batch_n):
