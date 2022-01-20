@@ -6,7 +6,7 @@ setup(
     version='0.0.14',
     license='MIT',
     description='Algorithm for generating and separating analytical chemistry signal.',
-    long_description = file: README.md,
+    long_description = 'file: README.md',
     long_description_content_type = 'text/markdown',
     author='Mieszko Pasierbek',
     author_email='mieszko.pasierbek@gmail.com',
