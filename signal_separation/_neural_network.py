@@ -1,7 +1,7 @@
 from tensorflow.keras import layers, Model, backend
 import numpy as np
 import tensorflow as tf
-from signal_separation._signal_creator import destandardize_height, height_ratio, places_change, de_standardize
+from _signal_creator import destandardize_height, height_ratio, places_change, de_standardize
 
 
 def multiply_cnn(n, kernel_size, added_filters, filter_beg, dense1, dense2, x, batch_n):
@@ -192,13 +192,19 @@ def vectors_from_cnn(model):
 
 
 def predicting(model, svrh, svrt, signal):
-    hvector, tvector = vectors_from_cnn(model)
-    inp = np.zeros((1, len(signal)))
-    inp[0, :] = signal
-    xp = tvector.predict(inp)
-    xh = hvector.predict(inp)
-    out1 = svrh.predict(xh)
-    out2 = svrt.predict(xp)
-    out = np.hstack((out1, out2))
+    '''
+    Enter None as the svrh and svrt variables if you don't have the SVR algorithm trained
+    '''
+    if svrh is None:
+        out = model.fit(signal)
+    else:
+        hvector, tvector = vectors_from_cnn(model)
+        inp = np.zeros((1, len(signal)))
+        inp[0, :] = signal
+        xp = tvector.predict(inp)
+        xh = hvector.predict(inp)
+        out1 = svrh.predict(xh)
+        out2 = svrt.predict(xp)
+        out = np.hstack((out1, out2))
     out = de_standardize(out, 400, 500, 400, 600, 0.8, 15)
     return out
