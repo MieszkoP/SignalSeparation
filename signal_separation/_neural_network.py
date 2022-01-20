@@ -195,12 +195,12 @@ def predicting(model, svrh, svrt, signal):
     '''
     Enter None as the svrh and svrt variables if you don't have the SVR algorithm trained
     '''
+    inp = np.zeros((1, len(signal)))
+    inp[0, :] = signal
     if svrh is None:
-        out = model.fit(signal)
+        out = model.predict(signal)
     else:
         hvector, tvector = vectors_from_cnn(model)
-        inp = np.zeros((1, len(signal)))
-        inp[0, :] = signal
         xp = tvector.predict(inp)
         xh = hvector.predict(inp)
         out1 = svrh.predict(xh)
