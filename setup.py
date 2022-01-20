@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='signal_separation',
     packages=['signal_separation'],
-    version='0.0.14',
+    version='0.0.15',
     license='MIT',
     description='Algorithm for generating and separating analytical chemistry signal.',
     long_description = 'file: README.md',
@@ -11,7 +11,7 @@ setup(
     author='Mieszko Pasierbek',
     author_email='mieszko.pasierbek@gmail.com',
     url='https://github.com/MieszkoP',
-    download_url='https://github.com/MieszkoP/signal_separation/archive/refs/tags/0.0.14.tar.gz',
+    download_url='https://github.com/MieszkoP/signal_separation/archive/refs/tags/0.0.15.tar.gz',
     keywords=['CNN', 'Deep Learning', 'signal', 'SVR', 'chemometrics', 'chemistry'],
     include_package_data=True,
     install_requires=[
