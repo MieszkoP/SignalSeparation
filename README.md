@@ -119,6 +119,17 @@ train_network = s.train_network_maker(x_t, y_new_test, x, y_new, cost_height_pro
 
 model = train_network(2, 5, tf.keras.optimizers.Adam, 0.01, s.only_after_act)
 ```
+You can estimate the model without using SVR if you enter None in the svrt and svrh values: 
+
+```python
+model = s.create_network(s.only_after_act, 5)
+s.download_weights(model)
+estimation = s.predicting(model, svrh=None, svrt=None, signal=signal)
+```
+```python
+>>> estimation
+array([[  3.98014808,   5.80291796, 450.34817505, 501.23461914]])
+```
 
 ### Training the genetic algorithm
 
