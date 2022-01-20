@@ -198,7 +198,7 @@ def predicting(model, svrh, svrt, signal):
     inp = np.zeros((1, len(signal)))
     inp[0, :] = signal
     if svrh is None:
-        out = model.predict(signal)
+        out = model.predict(inp)
     else:
         hvector, tvector = vectors_from_cnn(model)
         xp = tvector.predict(inp)
